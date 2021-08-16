@@ -1,0 +1,27 @@
+# system
+.DS_Store
+Thumbs.db
+
+# node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# dotnet
+bin/
+obj/
+backend/
+
+# VSCode
+.metals/
+.ionide/
+.history/
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+
+# JetBrains
+.idea/*
