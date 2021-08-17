@@ -1,0 +1,6 @@
+<p>media-collection works!</p>
+<table>
+  <tr *ngFor="let item of memberLinks">
+    <td><a [routerLink]="[item.id]">{{item.id}}</a></td>
+  </tr>
+</table>
