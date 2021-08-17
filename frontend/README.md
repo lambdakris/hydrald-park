@@ -1,7 +1,7 @@
-# Al
+# Alcaeus+Angular Sandbox Frontend
 
 ## Introduction
-Al is a PoC for using Alcaeus with Angular to build Hydra style Angular clients. 
+This project is the Frontend for the Alcaeus+Angular Sandbox that will showcase how to use Alcaeus with Angular to build Hydra style browser clients. 
 
 For more info on Angular, go to the [Angular Website]
 
@@ -9,7 +9,7 @@ For more info on Alcaeus, go to the [Alcaeus Website]
 
 ## Dependencies
 
-Al was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.4.
+The Frontend was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.4.
 
 
 In order to get Alcaeus working with Angular the following dependencies had to be installed

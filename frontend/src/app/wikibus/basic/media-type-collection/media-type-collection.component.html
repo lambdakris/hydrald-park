@@ -1,0 +1,5 @@
+<div>
+  <div *ngFor="let link of mediaTypeGroup">
+    <a [routerLink]="[ 'media', link.id ]">{{link.title}}</a>
+  </div>
+</div>
