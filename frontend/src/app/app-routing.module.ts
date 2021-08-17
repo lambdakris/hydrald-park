@@ -8,12 +8,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'wikibus',
-    loadChildren: () => import('./wikibus/wikibus.module').then(m => m.WikibusModule)
+    path: 'basic',
+    loadChildren: () => import('./basic/basic.module').then(m => m.BasicModule)
   },
   {
-    path: 'cookbook',
-    loadChildren: () => import('./cookbook/cookbook.module').then(m => m.CookbookModule)
+    path: 'framework',
+    loadChildren: () => import('./framework/framework.module').then(m => m.FrameworkModule)
   }
 ];
 
