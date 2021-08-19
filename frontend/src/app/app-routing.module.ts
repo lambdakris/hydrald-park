@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'cookbook',
     loadChildren: () => import('./cookbook/cookbook.module').then(m => m.CookbookModule)
+  },
+  {
+    path: 'framework',
+    loadChildren: () => import("./framework/hydra-framework.module").then(m => m.HydraClientFrameworkModule)
   }
 ];
 
