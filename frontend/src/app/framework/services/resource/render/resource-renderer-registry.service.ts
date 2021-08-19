@@ -4,11 +4,17 @@ import { ResourceRendererRegistration } from './model/resource-renderer-registra
 
 // @Component({
 //   template: `
-//     <hydra-renderer baseIri="https://www.wikibus.com"></hydra-renderer>
+//     <hydra-renderer defaultIri="https://www.wikibus.org"></hydra-renderer>
 //   `
 // })
-// class ExternalAppComponent {
-
+// class HydraRenderer {
+//   private renderers: ResourceRendererRegistration[] = [
+//     ...defaultRenderers,
+//     {
+//       canRender: (x) => isCollection(x) && x.id.value == "books",
+//       load: () => Promise.resolve(BookCollectionRenderer)
+//     }
+//   ]
 // }
 
 @Injectable()
