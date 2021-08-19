@@ -27,7 +27,7 @@ import { HYDRA_RESOURCE } from '../../tokens/hydra-resource.token';
   ]
 })
 export class MediaObjectRendererComponent implements OnInit, OnDestroy {
-  private baseUri: string = "https://sources.wikibus.org/";
+  //private baseUri: string = "https://sources.wikibus.org/";
   private destroySubject = new Subject();
 
   public isLoading = false;

@@ -19,6 +19,6 @@ export class HydraLink {
     if (this.href)
     {
       this.hydraRouter.route(this.href);
-    }    
+    }
   }
 }

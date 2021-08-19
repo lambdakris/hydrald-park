@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Resource } from 'alcaeus';
+import { Resource } from '../../model';
 import { HYDRA_RESOURCE } from '../../tokens/hydra-resource.token';
 import { getDescription, getTitle } from '../../utilities/hydra-resource.utilities';
 
