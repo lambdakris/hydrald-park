@@ -1,18 +1,14 @@
-import { Component, ComponentFactoryResolver, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Hydra } from 'alcaeus/web';
+import { Component, ComponentFactoryResolver, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-import { MediaHostDirective } from 'src/app/framework/directives/media-host.directive';
-import { HydraResourceComponentProvider } from '../../services/hydra-renderer-provider.service';
+import { MediaHostDirective } from '../../../framework/directives/media-host.directive';
 import { ResourceFetchService, resourceFetchServiceProvider } from '../../services/resource/fetch';
 import { ResourceRendererProviderService } from '../../services/resource/render/resource-renderer-provider.service';
 import { ResourceRendererRegistryService } from '../../services/resource/render/resource-renderer-registry.service';
-import { resourceRoutingServiceProvider } from '../../services/resource/routing';
+import { HydraRouter, hydraRouterProvider } from '../../services/router';
 import { HYDRA_RESOURCE } from '../../tokens/hydra-resource.token';
 
 @Component({
-  selector: 'app-media-object-renderer',
+  selector: 'hydra-api',
   template: `
     <div *ngIf="isLoading">
       Loading...
@@ -20,14 +16,16 @@ import { HYDRA_RESOURCE } from '../../tokens/hydra-resource.token';
     <ng-template mediaHost></ng-template>
   `,
   providers: [
-    resourceRoutingServiceProvider, 
+    hydraRouterProvider, 
     resourceFetchServiceProvider,
     ResourceRendererRegistryService,
     ResourceRendererProviderService
   ]
 })
 export class MediaObjectRendererComponent implements OnInit, OnDestroy {
-  //private baseUri: string = "https://sources.wikibus.org/";
+  @Input()
+  public src?: string;
+
   private destroySubject = new Subject();
 
   public isLoading = false;
@@ -38,17 +36,20 @@ export class MediaObjectRendererComponent implements OnInit, OnDestroy {
   constructor(
     private hydraResourceService: ResourceFetchService,
     private hydraResourceRendererProvider: ResourceRendererProviderService,
+    private hydraResourceRouter: HydraRouter,
     private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector) {}
   
   ngOnInit(): void {
-    // this.route.url
-    //   .pipe(
-    //     takeUntil(this.destroySubject),
-    //     map(uriSegments => this.baseUri + uriSegments.join("/"))
-    //   )
-
-    // localhost:8080/framework;iri=https://sources.wikibus.org/
+    this.hydraResourceRouter.getIri$().subscribe(
+      iri => {
+        console.log(iri, this.src);
+        if (!iri && this.src)
+        {
+          this.hydraResourceRouter.route(this.src);
+        }
+      }
+    );
 
     this.hydraResourceService
       .getResource$()
@@ -57,6 +58,9 @@ export class MediaObjectRendererComponent implements OnInit, OnDestroy {
         {
           return;
         }
+
+        var ontology = resource.apiDocumentation?.supportedClass.find(x => x.id == resource.id);
+        console.log(ontology);
 
         var renderer = await this.hydraResourceRendererProvider.getComponent(resource);
         var componentFactory = this.componentFactoryResolver.resolveComponentFactory(renderer);
@@ -70,6 +74,7 @@ export class MediaObjectRendererComponent implements OnInit, OnDestroy {
           parent: this.injector
         });
         
+        this.mediaHost?.viewContainerRef.clear();
         this.mediaHost?.viewContainerRef.createComponent(componentFactory, 0, componentInjector);
       });
   }

@@ -1,24 +1,24 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { ResourceRoutingService } from '../services/resource/routing';
+import { HydraRouter } from '../services/router';
 
 @Directive({
-  selector: 'hydra-link'
+  selector: 'hydraLink'
 })
 export class HydraLink {
   @Input()
-  public href: string | undefined;
+  public hydraLink: string | undefined;
 
   constructor(
-    private hydraRouter: ResourceRoutingService
+    private hydraRouter: HydraRouter
   )
   {}
 
   @HostListener('click')
   public OnClick()
   {
-    if (this.href)
+    if (this.hydraLink)
     {
-      this.hydraRouter.route(this.href);
+      this.hydraRouter.route(this.hydraLink);
     }
   }
 }
