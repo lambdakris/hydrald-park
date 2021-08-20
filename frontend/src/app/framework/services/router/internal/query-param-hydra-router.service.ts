@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ResourceRoutingService } from '../resource-routing.service';
+import { HydraRouter } from '../hydra-router.service';
 
 @Injectable()
-export class QueryParamResourceRoutingService extends ResourceRoutingService {
+export class QueryParamHydraRoutingService extends HydraRouter {
   static IRI_QUERY_PARAM_NAME = "iri";
 
   constructor(
@@ -20,7 +20,7 @@ export class QueryParamResourceRoutingService extends ResourceRoutingService {
       [],
       {
         queryParams: {
-          [QueryParamResourceRoutingService.IRI_QUERY_PARAM_NAME]: iri
+          [QueryParamHydraRoutingService.IRI_QUERY_PARAM_NAME]: iri
         },
         queryParamsHandling: 'merge'
       }
@@ -30,7 +30,7 @@ export class QueryParamResourceRoutingService extends ResourceRoutingService {
   getIri$(): Observable<string> {
     return this.activatedRoute.queryParams
       .pipe(
-        map(x => x[QueryParamResourceRoutingService.IRI_QUERY_PARAM_NAME])
+        map(x => x[QueryParamHydraRoutingService.IRI_QUERY_PARAM_NAME])
       );
   }
 }

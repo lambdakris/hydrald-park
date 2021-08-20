@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'framework',
-    loadChildren: () => import("./framework/hydra-framework.module").then(m => m.HydraClientFrameworkModule)
+    loadChildren: () => import("./framework-example/hydra-framework-example.module").then(m => m.HydraFrameworkExampleModule)
   }
 ];
 

@@ -1,21 +1,7 @@
-import { Component, Injectable } from '@angular/core';
-import { isCollection } from 'src/app/framework/utilities/hydra-resource.utilities';
+import { Inject, Injectable } from '@angular/core';
+import { HydraFrameworkConfig } from 'src/app/framework/model';
+import { HydraFrameworkConfigurationService } from '../../framework-configuration.service';
 import { ResourceRendererRegistration } from './model/resource-renderer-registration';
-
-// @Component({
-//   template: `
-//     <hydra-renderer defaultIri="https://www.wikibus.org"></hydra-renderer>
-//   `
-// })
-// class HydraRenderer {
-//   private renderers: ResourceRendererRegistration[] = [
-//     ...defaultRenderers,
-//     {
-//       canRender: (x) => isCollection(x) && x.id.value == "books",
-//       load: () => Promise.resolve(BookCollectionRenderer)
-//     }
-//   ]
-// }
 
 @Injectable()
 export class ResourceRendererRegistryService {
@@ -29,6 +15,15 @@ export class ResourceRendererRegistryService {
       load: () => import("./components/no-renderer.component").then(x => x.NoRenderer)
     }
   ];
+
+  constructor(
+    @Inject(HydraFrameworkConfigurationService) private config: HydraFrameworkConfig)
+  {
+    this.registrations = [
+      ...config.components ?? [],
+      ...this.registrations
+    ];
+  }
 
   public register(
     registration: ResourceRendererRegistration
